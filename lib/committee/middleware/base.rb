@@ -18,7 +18,7 @@ module Committee::Middleware
     def call(env)
       request = Rack::Request.new(env)
 
-      if @router.includes_request?(request)
+      if @router.includes_request?(request) && env['skip_committee_validation']
         handle(request)
       else
         @app.call(request.env)
